@@ -10,6 +10,8 @@
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <title>Work Day Scheduler</title>
 </head>
 
@@ -20,22 +22,26 @@
     <p id="currentDay" class="lead"></p>
   </header>
   <div class="container">
-    <!-- Timeblocks go here -->
-    <div class="timeblock"
-    <!-- 9am block -->
-    <!-- 10am block -->
-    <!-- 11am block -->
-    <!-- 12pm block -->
-    <!-- 1pm block -->
-    <!-- 2pm block -->
-    <!-- 3pm block -->
-    <!-- 4pm block -->
-    <!-- 5pm block -->
 
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script>
+    var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+    var timeDiv = $(".container");
+    for (var i = 0; i < timesEl.length; i++) {
+      var newDiv = $("<div>" + timesEl[i] + "</div>");
+      timeDiv.append(newDiv);
+    };
+  </script>
 </body>
 
 </html>
+
+<!-- 
+  this is the bootstrap input field that allows for a button on the side
+  <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Button</button>
+  </div>
+</div> -->

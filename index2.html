@@ -1,0 +1,22 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Content!</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="container"></div>
+    <script>
+        var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+        var timeDiv = $(".container");
+        for (var i = 0; i < timesEl.length; i++) {
+            var newDiv = $("<div>" + timesEl[i] + "</div>");
+            timeDiv.append(newDiv);
+        };
+    </script>
+</body>
+
+</html>
