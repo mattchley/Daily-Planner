@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- is the time site for the colors -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <title>Work Day Scheduler</title>
 </head>
@@ -22,14 +23,7 @@
     <p id="currentDay" class="lead"></p>
   </header>
   <div class="container">
-    <div class='row'>
-      <div id='time'></div>
-      <form>
-        <input id="subject" name="subject" placeholder="practice save function here" style="height:200px"></input>
-        <input class='save' type="submit" value="Submit">
-      </form>
-
-
+    <div id='time' class='row'>
     </div>
 
   </div>
@@ -41,16 +35,17 @@
       var plannerEl = [];
       var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
       var timeDiv = $("#time");
-      var textInput = $('subject')
-
       init();
 
       // forloop for time propgation 
       function renderPlans() {
         for (var i = 0; i < timesEl.length; i++) {
-          var newDiv = $("<p>" + timesEl[i] + "</p>");
+          var newDiv = $("<div>" + timesEl[i] + "</div>");
+          newDiv.addClass('col-2')
           var taskInput = $("<input>" + "" + "</input>");
+          taskInput.addClass("col-8 plans");
           var saveBtn = $("<button>" + "Save it" + "</button>");
+          saveBtn.addClass("col-2 save");
           timeDiv.append(newDiv);
           timeDiv.append(taskInput);
           timeDiv.append(saveBtn);
@@ -76,22 +71,25 @@
         localStorage.setItem("plannerEl", JSON.stringify(plannerEl));
       };
       // event listener for save content (practice with a basic text input area)
-      $(".save").on("click", function (event) {
+      // https://stackoverflow.com/questions/46139544/how-to-save-clicked-result-in-cookie-or-in-localstorage may have the best answer
+      $('.save').on("click", function (event) {
         event.preventDefault();
-        var planText = textInput.value.trim();
 
-        // Return from function early if submitted todoText is blank
-        if (planText === "") {
-          return;
-        }
+        $('plans').html();
+        // var planText = textInput.value.trim();
 
-        // Add new todoText to todos array, clear the input
-        plannerEl.push(planText);
-        textInput.value = "";
+        // // Return from function early if submitted todoText is blank
+        // if (planText === "") {
+        //   return;
+        // }
 
-        storePlans();
-        renderPlans();
+        // // Add new todoText to todos array, clear the input
+        // plannerEl.push(planText);
+        // textInput.value = "";
 
+        // storePlans();
+        // renderPlans();
+// localStorage.setItem
       });
 
 

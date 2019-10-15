@@ -69,9 +69,16 @@ Step 1
 Pseudocode
 From observing the gif I will need to use similar functions to the todo list activity and dynamic creation of content from the quiz homework.
 
+Q: can you put jquery on a seperate file?
+
 step 1
 for the main content of the page there needs to be some sort of For Loop that creates the time blocks from an array of 9am-5pm
 -this may be styled with boot strap
+done (x) 10-15 2:25
 
 step 2 
 allow for the user to save items that are within the time blocks
+half way? 10-15 4pm
+
+Step3
+Integrate time into page, moment.js?
