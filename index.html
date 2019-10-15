@@ -35,20 +35,23 @@
       var plannerEl = [];
       var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
       var timeDiv = $("#time");
+      // full day full month number date
+      var date = moment().format("dddd - MMMM - Do");
       init();
 
       // forloop for time propgation 
       function renderPlans() {
         for (var i = 0; i < timesEl.length; i++) {
           var newDiv = $("<div>" + timesEl[i] + "</div>");
-          newDiv.addClass('col-2')
+          newDiv.addClass('col-1')
           var taskInput = $("<input>" + "" + "</input>");
-          taskInput.addClass("col-8 plans");
+          taskInput.addClass("col-10 plans");
           var saveBtn = $("<button>" + "Save it" + "</button>");
-          saveBtn.addClass("col-2 save");
+          saveBtn.addClass("col-1 save");
           timeDiv.append(newDiv);
           timeDiv.append(taskInput);
           timeDiv.append(saveBtn);
+          $('currentDay').append(date)
         };
       }
       // saving function
@@ -71,6 +74,7 @@
         localStorage.setItem("plannerEl", JSON.stringify(plannerEl));
       };
       // event listener for save content (practice with a basic text input area)
+
       // https://stackoverflow.com/questions/46139544/how-to-save-clicked-result-in-cookie-or-in-localstorage may have the best answer
       $('.save').on("click", function (event) {
         event.preventDefault();
@@ -89,7 +93,7 @@
 
         // storePlans();
         // renderPlans();
-// localStorage.setItem
+        // localStorage.setItem
       });
 
 
