@@ -23,7 +23,13 @@
   </header>
   <div class="container">
     <div class='row'>
-        <div id='time' class='column-12'></div>
+      <div id='time'></div>
+      <form>
+        <input id="subject" name="subject" placeholder="practice save function here" style="height:200px"></input>
+        <input class='save' type="submit" value="Submit">
+      </form>
+
+
     </div>
 
   </div>
@@ -31,42 +37,76 @@
   <script>
     $(document).ready(function () {
 
-      // Pull saved content
-      // init();
-
-
-      // UNiversal Variables
+      // Universal Variables
+      var plannerEl = [];
       var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
       var timeDiv = $("#time");
+      var textInput = $('subject')
 
-      // forloo for time propgation 
-      for (var i = 0; i < timesEl.length; i++) {
-        var newDiv = $("<p>" + timesEl[i] + "</p>");
-        var taskInput = $("<input>" + "" + "</input>");
-        var saveBtn = $("<button>" + "Save it" + "</button>");
-        timeDiv.append(newDiv);
-        timeDiv.append(taskInput);
-        timeDiv.append(saveBtn);
+      init();
+
+      // forloop for time propgation 
+      function renderPlans() {
+        for (var i = 0; i < timesEl.length; i++) {
+          var newDiv = $("<p>" + timesEl[i] + "</p>");
+          var taskInput = $("<input>" + "" + "</input>");
+          var saveBtn = $("<button>" + "Save it" + "</button>");
+          timeDiv.append(newDiv);
+          timeDiv.append(taskInput);
+          timeDiv.append(saveBtn);
+        };
+      }
+      // saving function
+      function init() {
+        // Get stored todos from localStorage
+        // Parsing the JSON string to an object
+        var storedPlans = JSON.parse(localStorage.getItem("plannerEl"));
+
+        // If todos were retrieved from localStorage, update the todos array to it
+        if (storedPlans !== null) {
+          plannerEL = storedPlans;
+        }
+
+        // Render todos to the DOM
+        renderPlans();
+      }
+      // generate saved content function
+      function storePlans() {
+        // Stringify and set "todos" key in localStorage to todos array
+        localStorage.setItem("plannerEl", JSON.stringify(plannerEl));
       };
+      // event listener for save content (practice with a basic text input area)
+      $(".save").on("click", function (event) {
+        event.preventDefault();
+.trim
+        var planText = textInput.value.trim();
+
+        // Return from function early if submitted todoText is blank
+        if (planText === "") {
+          return;
+        }
+
+        // Add new todoText to todos array, clear the input
+        plannerEl.push(planText);
+        textInput.value = "";
+
+        storePlans();
+        renderPlans();
+
+      });
+
 
       // Time running function
 
       // Current Day Generator
 
-      // Time block variables
-
-      // display date at top
-
       // color blocks based on past present and future
 
-      // saving function
 
-      // event listener for save content
 
-      // generate saved content function
 
     });
   </script>
 </body>
 
-</html> 
+</html>
