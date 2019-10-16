@@ -23,7 +23,7 @@
     <p id="currentDay" class="lead"></p>
   </header>
   <div class="container">
-    <div id='time' class='row'>
+    <div id='time' class='plans row'>
     </div>
 
   </div>
@@ -32,11 +32,12 @@
     $(document).ready(function () {
 
       // Universal Variables
-      var plannerEl = [];
+      var plans = [];
       var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
       var timeDiv = $("#time");
       // full day full month number date
-      var date = moment().format("dddd - MMMM - Do");
+      var date = moment().format("dddd, MMMM Do");
+      var planText = $("input[class*='plans']");
       init();
 
       // forloop for time propgation 
@@ -46,6 +47,8 @@
           newDiv.addClass('col-1')
           var taskInput = $("<input>" + "" + "</input>");
           taskInput.addClass("col-10 plans");
+          // might not be necessary?
+          // taskInput.attr('tasks', i)
           var saveBtn = $("<button>" + "Save it" + "</button>");
           saveBtn.addClass("col-1 save");
           timeDiv.append(newDiv);
@@ -58,11 +61,11 @@
       function init() {
         // Get stored todos from localStorage
         // Parsing the JSON string to an object
-        var storedPlans = JSON.parse(localStorage.getItem("plannerEl"));
+        var storedPlans = JSON.parse(localStorage.getItem("plans"));
 
         // If todos were retrieved from localStorage, update the todos array to it
         if (storedPlans !== null) {
-          plannerEL = storedPlans;
+          plans = storedPlans;
         }
 
         // Render todos to the DOM
@@ -71,7 +74,7 @@
       // generate saved content function
       function storePlans() {
         // Stringify and set "todos" key in localStorage to todos array
-        localStorage.setItem("plannerEl", JSON.stringify(plannerEl));
+        localStorage.setItem("plans", JSON.stringify(plans));
       };
       // event listener for save content (practice with a basic text input area)
 
@@ -79,21 +82,28 @@
       $('.save').on("click", function (event) {
         event.preventDefault();
 
-        $('plans').html();
-        // var planText = textInput.value.trim();
+        
+        // It is refering to somthing now but 
+        // might just format to have several rows if trouble continues
+        for(var i = 0; i < timesEl.length; i++) {
+         $.trim(planText);
+        }
+        
+        console.log($.trim(planText));
 
-        // // Return from function early if submitted todoText is blank
-        // if (planText === "") {
-        //   return;
-        // }
 
-        // // Add new todoText to todos array, clear the input
-        // plannerEl.push(planText);
-        // textInput.value = "";
 
-        // storePlans();
-        // renderPlans();
-        // localStorage.setItem
+        // Return from function early if submitted todoText is blank
+        if (planText === "") {
+          return;
+        }
+
+        // Add new todoText to todos array, clear the input
+        plans.push(planText);
+        $('tasks').value = "";
+
+        storePlans();
+
       });
 
 
