@@ -1,21 +1,132 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>jQuery Content!</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!-- is the time site for the colors -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <title>Work Day Scheduler</title>
 </head>
 
 <body>
-    <div class="container"></div>
+    <header class="jumbotron">
+        <h1 class="display-3">Work Day Scheduler</h1>
+        <p class="lead">A simple calendar app for scheduling your work day</p>
+        <p id="currentDay" class="lead"></p>
+    </header>
+    <div class="container">
+        <div id='time' class='plans row'>
+        </div>
+
+    </div>
+
+
+
+
     <script>
-        var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
-        var timeDiv = $(".container");
-        for (var i = 0; i < timesEl.length; i++) {
-            var newDiv = $("<div>" + timesEl[i] + "</div>");
-            timeDiv.append(newDiv);
-        };
+        $(document).ready(function () {
+
+
+            // Variables for renderPlans
+            var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+            var timeDiv = $("#time");
+            init();
+
+            // Variable for ClickEvent
+            var plansInput = $(".col-10 plans").val();
+            var plans = [];
+
+            // Variable for moment time
+            var displayDate = $('#currentDay')
+            var currentTime = moment();
+            var date = currentTime.format("dddd, MMMM Do");
+            var future = currentTime.add(1, 'hour');
+            var past = currentTime.subtract(1, 'hour');
+            // Current Day Generator
+            displayDate.append(date)
+            // colortimes();
+            // Functions
+            // Creates Planner layout
+            function renderPlans() {
+                for (var i = 0; i < timesEl.length; i++) {
+                    // Displays the hour blocks on the left
+                    var newDiv = $("<div>" + timesEl[i] + "</div>");
+                    newDiv.addClass('col-1')
+                    newDiv.attr('time', [i])
+
+                    // Displays the input blocks in the middle
+                    var taskInput = $("<input>" + "" + "</input>");
+                    taskInput.addClass("col-10 plans");
+                    taskInput.attr('type', 'text')
+
+                    // Displays the button on the right
+                    var saveBtn = $("<button>" + "Save it" + "</button>");
+                    saveBtn.addClass("col-1 save");
+
+                    // Appends all the items to the DOM
+                    timeDiv.append(newDiv);
+                    timeDiv.append(taskInput);
+                    timeDiv.append(saveBtn);
+                };
+            }
+            // Set saved content
+            function init() {
+                // Get stored todos from localStorage
+                // Parsing the JSON string to an object
+                var storedPlans = JSON.parse(localStorage.getItem("plans"));
+
+                // If todos were retrieved from localStorage, update the todos array to it
+                if (storedPlans !== null) {
+                    plans = storedPlans;
+                }
+
+                // Render todos to the DOM
+                renderPlans();
+            }
+            // Get saved content
+            function storedPlans() {
+                // Stringify and set "todos" key in localStorage to todos array
+                localStorage.setItem("plans", JSON.stringify(plans));
+            };
+
+            // function colortimes() {
+            //     if (moment().format('h') > currentTime) {
+            //         $("div").css('background-color', 'grey');
+            //     }
+            //     if (moment().format('h') < currentTime) {
+            //         $("div").css('background-color', 'green');
+
+            //     }
+            //     else if (moment().format('h') = currentTime) {
+            //         $("div").css('background-color', 'red');
+            //     }
+            // };
+
+            // Listen for clicks
+            $('.save').on("click", function (event) {
+                event.preventDefault();
+                // 1st returns null
+                // now returns object object when run
+                var planText = $.trim(plansInput);
+
+                if (planText === "") {
+                    return;
+                }
+
+                plans.push(planText);
+                plansInput;
+
+                storedPlans();
+            });
+        });
     </script>
 </body>
 

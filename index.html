@@ -35,9 +35,33 @@
       var plans = [];
       var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
       var timeDiv = $("#time");
+      var displayDate = $('#currentDay')
+      // var taskInput0 = $("input[plans='0']");
+      // var taskInput1 = $("input[plans='1']");
+      // var taskInput2 = $("input[plans='2']");
+      // var taskInput3 = $("input[plans='3']");
+      // var taskInput4 = $("input[plans='4']");
+      // var taskInput5 = $("input[plans='5']");
+      // var taskInput6 = $("input[plans='6']");
+      // var taskInput7 = $("input[plans='7']");
+      // var taskInput8 = $("input[plans='8']");
+      // var timeEl0 = $("div [time='0']");
+      // var timeEl1 = $("div [time='1']");
+      // var timeEl2 = $("div [time='2']");
+      // var timeEl3 = $("div [time='3']");
+      // var timeEl4 = $("div [time='4']");
+      // var timeEl5 = $("div [time='5']");
+      // var timeEl6 = $("div [time='6']");
+      // var timeEl7 = $("div [time='7']");
+      // var timeEl8 = $("div [time='8']");
+
       // full day full month number date
-      var date = moment().format("dddd, MMMM Do");
-      var planText = $("input[class*='plans']");
+      var currentTime = moment();
+      var date = currentTime.format("dddd, MMMM Do");
+      // Current Day Generator
+      displayDate.append(date)
+
+
       init();
 
       // forloop for time propgation 
@@ -45,8 +69,10 @@
         for (var i = 0; i < timesEl.length; i++) {
           var newDiv = $("<div>" + timesEl[i] + "</div>");
           newDiv.addClass('col-1')
+          newDiv.attr('time', [i])
           var taskInput = $("<input>" + "" + "</input>");
           taskInput.addClass("col-10 plans");
+          taskInput.attr('task', [i])
           // might not be necessary?
           // taskInput.attr('tasks', i)
           var saveBtn = $("<button>" + "Save it" + "</button>");
@@ -54,7 +80,7 @@
           timeDiv.append(newDiv);
           timeDiv.append(taskInput);
           timeDiv.append(saveBtn);
-          $('currentDay').append(date)
+
         };
       }
       // saving function
@@ -81,38 +107,92 @@
       // https://stackoverflow.com/questions/46139544/how-to-save-clicked-result-in-cookie-or-in-localstorage may have the best answer
       $('.save').on("click", function (event) {
         event.preventDefault();
+        var taskText0 = $.trim(taskInput0);
+        var taskText1 = $.trim(taskInput1);
+        var taskText2 = $.trim(taskInput2);
+        var taskText3 = $.trim(taskInput3);
+        var taskText4 = $.trim(taskInput4);
+        var taskText5 = $.trim(taskInput5);
+        var taskText6 = $.trim(taskInput6);
+        var taskText7 = $.trim(taskInput7);
+        var taskText8 = $.trim(taskInput8);
 
-        
         // It is refering to somthing now but 
         // might just format to have several rows if trouble continues
-        for(var i = 0; i < timesEl.length; i++) {
-         $.trim(planText);
-        }
-        
-        console.log($.trim(planText));
-
 
 
         // Return from function early if submitted todoText is blank
-        if (planText === "") {
+        if (taskText0 === "") {
+          return;
+        }
+        if (taskText1 === "") {
+          return;
+        }
+        if (taskText2 === "") {
+          return;
+        }
+        if (taskText3 === "") {
+          return;
+        }
+        if (taskText4 === "") {
+          return;
+        }
+        if (taskText5 === "") {
+          return;
+        }
+        if (taskText6 === "") {
+          return;
+        }
+        if (taskText7 === "") {
+          return;
+        }
+        if (taskText8 === "") {
           return;
         }
 
         // Add new todoText to todos array, clear the input
-        plans.push(planText);
-        $('tasks').value = "";
+        plans.push(taskText0);
+        taskInput0.value = "";
+        plans.push(taskText1);
+        taskInput0.value = "";
+        plans.push(taskText2);
+        taskInput0.value = "";
+        plans.push(taskText3);
+        taskInput0.value = "";
+        plans.push(taskText4);
+        taskInput0.value = "";
+        plans.push(taskText5);
+        taskInput0.value = "";
+        plans.push(taskText6);
+        taskInput0.value = "";
+        plans.push(taskText7);
+        taskInput0.value = "";
+        plans.push(taskText8);
+        taskInput0.value = "";
 
         storePlans();
-
       });
 
 
-      // Time running function
-
-      // Current Day Generator
-
       // color blocks based on past present and future
+      // works after 12 for future
+      function colorCells() {
+        // if (m === timesEl.length) {
+        //   var present = planColor.css('background-color', 'red')
+        //   present.append(planText);
+        // };
+        // 12 + 1 > 9
+        // if (currentTime.add(1, 'hour') > (timesEl.length)) {
+        //   var future = planColor.css('background-color', 'green')
+        //   future.append(planText);
+        // }
+        // if (m.subtract(1, 'hour') < timesEl.length) {
+        //   var past = planColor.css('background-color', 'yellow')
+        //   past.append(planText);
+        // }
+      };
 
+      colorCells();
 
 
 
