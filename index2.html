@@ -46,11 +46,14 @@
             var plans = [];
 
             // Variable for moment time
-            var displayDate = $('#currentDay')
+            var displayDate = $('#currentDay');
             var currentTime = moment();
+            var currentTimeMiltary = moment().format('h');
             var date = currentTime.format("dddd, MMMM Do");
-            var future = currentTime.add(1, 'hour');
-            var past = currentTime.subtract(1, 'hour');
+            var future = currentTime.add(1, 'hour').format('h');
+            var past = currentTime.subtract(1, 'hour').format('h');
+            // having issue getting the value to compare with moment.js
+            var now = $(".display").attr('time');
             // Current Day Generator
             displayDate.append(date)
             // colortimes();
@@ -60,8 +63,9 @@
                 for (var i = 0; i < timesEl.length; i++) {
                     // Displays the hour blocks on the left
                     var newDiv = $("<div>" + timesEl[i] + "</div>");
-                    newDiv.addClass('col-1')
-                    newDiv.attr('time', [i])
+                    newDiv.addClass('col-1 display')
+                    // to show time is Military
+                    newDiv.attr('time', [i+9])
 
                     // Displays the input blocks in the middle
                     var taskInput = $("<input>");
@@ -102,18 +106,18 @@
                 localStorage.setItem("plans", JSON.stringify(plans));
             };
 
-            // function colortimes() {
-            //     if (moment().format('h') > currentTime) {
-            //         $("div").css('background-color', 'grey');
-            //     }
-            //     if (moment().format('h') < currentTime) {
-            //         $("div").css('background-color', 'green');
+            function colortimes() {
+                if (future > now) {
+                    $("div").css('background-color', 'grey');
+                }
+                if ( past < now) {
+                    $("div").css('background-color', 'green');
 
-            //     }
-            //     else if (moment().format('h') = currentTime) {
-            //         $("div").css('background-color', 'red');
-            //     }
-            // };
+                }
+                else if (currentTimeMiltary = now) {
+                    $("div").css('background-color', 'red');
+                }
+            };
 
             // Listen for clicks
             $('.save').on("click", function (event) {
