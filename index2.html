@@ -41,7 +41,7 @@
             init();
 
             // Variable for ClickEvent
-            var plansInput = $(".col-10 plans").val();
+            var plansInput = $('#inputfield');
             var plans = [];
 
             // Variable for moment time
@@ -63,9 +63,10 @@
                     newDiv.attr('time', [i])
 
                     // Displays the input blocks in the middle
-                    var taskInput = $("<input>" + "" + "</input>");
+                    var taskInput = $("<input>");
                     taskInput.addClass("col-10 plans");
                     taskInput.attr('type', 'text')
+                    taskInput.attr('id', 'inputfield')
 
                     // Displays the button on the right
                     var saveBtn = $("<button>" + "Save it" + "</button>");
@@ -115,14 +116,15 @@
                 event.preventDefault();
                 // 1st returns null
                 // now returns object object when run
-                var planText = $.trim(plansInput);
+                // third time recognizes first field only
+                var planText = plansInput.val().trim();
 
                 if (planText === "") {
                     return;
                 }
 
                 plans.push(planText);
-                plansInput;
+                plansInput.val();
 
                 storedPlans();
             });
