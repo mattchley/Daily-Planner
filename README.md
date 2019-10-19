@@ -79,6 +79,10 @@ done (x) 10-15 2:25
 step 2 
 allow for the user to save items that are within the time blocks
 half way? 10-15 4pm
+found a way to fix it by making the renderPlans append to their own seperate div
 
 Step3
 Integrate time into page, moment.js?
+Logic is there and can be styled by the CSS
+
+step 4 Change local storage to set and get only no need for the array

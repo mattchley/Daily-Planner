@@ -37,7 +37,7 @@
 
             // Variables for renderPlans
             var timesEl = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
-            var timeDiv = $("#time");
+            var timeDiv = $(".container");
             init();
 
             // Variable for ClickEvent
@@ -48,40 +48,44 @@
             // Variable for moment time
             var displayDate = $('#currentDay');
             var currentTime = moment();
-            var currentTimeMiltary = moment().format('h');
+            var now = $('.viewtime').attr("date-index")
+            var currentTimeMiltary =moment().format('h')
             var date = currentTime.format("dddd, MMMM Do");
-            var future = currentTime.add(1, 'hour').format('h');
-            var past = currentTime.subtract(1, 'hour').format('h');
+
             // having issue getting the value to compare with moment.js
-            var now = $(".display").attr('time');
+            // var now = $(".col-1 viewtime").attr('time').val();
             // Current Day Generator
             displayDate.append(date)
-            // colortimes();
+            colortimes();
             // Functions
             // Creates Planner layout
             function renderPlans() {
                 for (var i = 0; i < timesEl.length; i++) {
+                    var wrapDiv = $("<div>")
+                    wrapDiv.addClass("plans row")
                     // Displays the hour blocks on the left
                     var newDiv = $("<div>" + timesEl[i] + "</div>");
-                    newDiv.addClass('col-1 display')
+                    newDiv.addClass('viewtime')
                     // to show time is Military
-                    newDiv.attr('time', [i+9])
+                    newDiv.attr('data-index', [i+9])
 
                     // Displays the input blocks in the middle
                     var taskInput = $("<input>");
-                    taskInput.addClass("col-10 plans");
+                    taskInput.addClass("plans");
                     taskInput.attr('type', 'text')
                     taskInput.attr('id', 'inputfield')
                     taskInput.attr('placeholder', plans)
 
                     // Displays the button on the right
                     var saveBtn = $("<button>" + "Save it" + "</button>");
-                    saveBtn.addClass("col-1 save");
+                    saveBtn.addClass("save");
 
+                    // append all items to their own div
+                    wrapDiv.append(newDiv);
+                    wrapDiv.append(taskInput);
+                    wrapDiv.append(saveBtn);
                     // Appends all the items to the DOM
-                    timeDiv.append(newDiv);
-                    timeDiv.append(taskInput);
-                    timeDiv.append(saveBtn);
+                    timeDiv.append(wrapDiv)
                 };
             }
 
@@ -103,19 +107,19 @@
             // Get saved content
             function storedPlans() {
                 // Stringify and set "todos" key in localStorage to todos array
-                localStorage.setItem("plans", JSON.stringify(plans));
+                localStorage.setItem("plans");
             };
 
             function colortimes() {
-                if (future > now) {
-                    $("div").css('background-color', 'grey');
+                if (currentTimeMiltary > now) {
+                    $(".viewtime").attr('style', 'background-color:grey');
                 }
-                if ( past < now) {
-                    $("div").css('background-color', 'green');
+                if ( currentTimeMiltary < now) {
+                    $(".viewtime").attr('style', 'background-color:green');
 
                 }
                 else if (currentTimeMiltary = now) {
-                    $("div").css('background-color', 'red');
+                    $(".viewtime").attr('style', 'background-color:red');
                 }
             };
 
